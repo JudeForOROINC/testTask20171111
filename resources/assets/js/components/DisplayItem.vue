@@ -20,12 +20,12 @@
             </thead>
 
             <tbody>
-                <tr v-for="item in items">
+                <tr v-for="item,index in items">
                     <td>{{ item.id }}</td>
                     <td>{{ item.firstname_id }}</td>
                     <td>{{ item.lastname_id }}</td>
                     <td><router-link :to="{name: 'EditItem', params: { id: item.id }}" class="btn btn-primary">Edit</router-link></td>
-                    <td><button class="btn btn-danger" v-on:click="deleteItem(item.id)">Delete</button></td>
+                    <td><button class="btn btn-danger" v-on:click="deleteItem(item.id, index)">Delete</button></td>
                 </tr>
             </tbody>
         </table>
@@ -54,11 +54,29 @@
                   this.items = response.data;
               });
             },
-            deleteItem(id)
+            deleteItem(id, index)
             {
-              let uri = `http://localhost:8000/items/${id}`;
-              this.items.splice(id, 1);
-              this.axios.delete(uri);
+              let uri = `http://localhost/api/clients/${id}`;
+//		this.items.splice(index,1);
+		//var app = this;
+		this.axios.delete(uri).then( (responce) =>
+{
+		if(responce.data == '204')
+{
+              this.items.splice(index, 1);
+}
+});
+              //this.axios.delete(uri);
+//})
+//.catch(function (error) {
+//    if (error.response) {
+//      console.log(error.response.data);
+//      console.log(error.response.status);
+//      console.log(error.response.headers);
+//    } else {
+//alert('bug!');
+//}
+//  });
             }
         }
     }
