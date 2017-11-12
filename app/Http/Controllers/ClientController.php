@@ -20,6 +20,8 @@ class ClientController extends Controller
 
     public function store(Request $request)
     {
+//	die('me here!');
+//var_dump($request->all());die;
         return Client::create($request->all());
     }
 
