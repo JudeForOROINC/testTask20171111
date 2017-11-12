@@ -3,22 +3,33 @@
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.17",
+        "axios": "^0.17.1",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1.1",
-        "jquery": "^3.2",
-        "laravel-mix": "^1.0",
+        "jquery": "^3.2.1",
+        "laravel-mix": "^1.5.0",
         "lodash": "^4.17.4",
-        "vue": "^2.1.10"
+        "vue": "^2.1.10",
+        "vue-axios": "^2.0.2",
+        "vue-loader": "^13.5.0",
+        "vue-router": "^3.0.1",
+        "vue-template-compiler": "^2.5.3"
     },
     "dependencies": {
-        "node-sass": "^4.6.1"
+        "autoprefixer": "^7.1.6",
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.2",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "gifsicle": "^3.0.4",
+        "node-sass": "^4.6.1",
+        "uglify-js": "^3.1.9",
+        "webpack": "^3.8.1"
     }
 }

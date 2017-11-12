@@ -1,5 +1,3 @@
-// welcome.blade.php
-
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
@@ -10,13 +8,15 @@
         <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div id="app">
-        </div>
+<div id="app">
+  <example></example>
+</div>
          <script>
            window.Laravel = <?php echo json_encode([
                'csrfToken' => csrf_token(),
                     ]); ?>
           </script>
         <script src="{{asset('js/app.js')}}"></script>
+<h1>test page</h1>
     </body>
 </html>
