@@ -18,29 +18,10 @@ class ClientController extends Controller
  
     public function show($id)
     {
-//\DB::setFetchMode(\PDO::FETCH_ASSOC);
 	$clients = \DB::table('clients_view')->where('id', $id)->first();
 
-//var_dump($client);die;
-//get();
-
-//$fetchMode = \DB::getFetchMode();
-// set mode to custom
-//\DB::setFetchMode(\PDO::FETCH_ASSOC);
-// get data
-//$result = \DB::select('select * from clients_view where id = '.$id);
-// restore mode the original
-//\DB::setFetchMode($fetchMode);
-//var_dump($result);die;
-
-//        return Client::find($id);
-//	if ($client){
-$clients = Json_encode($clients);
-//var_dump($clients); die;
-//if (isset($clients[0])){
-// $clients = $clients->toArray();
-//}
-return $clients;
+	$client = Json_encode($clients);
+	return $client;
 //} else {
 //return abort(404);
 //}
