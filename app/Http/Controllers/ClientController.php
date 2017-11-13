@@ -10,7 +10,9 @@ class ClientController extends Controller
     //
     public function index()
     {
-        return Client::all();
+        //return Client::all();
+	$clients = \DB::table('clients_view')->get();
+	return $clients;
     }
  
     public function show($id)
