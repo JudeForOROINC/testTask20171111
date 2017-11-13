@@ -61,3 +61,53 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 Результат работы 
 
 Необходимо прислать в виде кода в ZIP/RAR формате, так же не забыть приложить дамп базы или DDL скрипты для ее разворачивания.
+
+## Steps to reproduce
+
+1. do git clone this repo:
+
+'git clone ...'
+
+2. in same folder do git clone laradock:
+
+'git clone ...'
+
+3. you must have next folders strucrute:
+
+\root_folder\
+|
+*-\testTask20171111\
+|
+*-\laradock\
+
+4. follow instructions of laradock to install docker + docker-compose.
+
+5. copy .env file, do set up env values:
+
+6. cd laravel ; run sudo docker-compose up -d nginx postgres;
+
+7. cd testTask20171111; copy .env and set up db: pgsql , host = postgres, user, db, pass (default is default/default/ secret)
+
+8. run chmode -R 777 ./storage ./bootstrap/cache 
+
+9. cd laravel, enter to container sudo run docker-compose exec workspace bash
+
+10. inside container run composer install
+
+11. inside container run npm install -unsafe-perm
+
+12. load migrations by php artisan migrate
+
+12. seed db by php artisan db:seed
+
+13. generate key by php artisan key:generate
+ 
+14. npm run development
+
+15. php artisan cache:clear
+
+16. check test is correct by run phpunit
+
+16. go to brouser url : http:\\localhost
+
+17. you must see the result! enjoy! 
