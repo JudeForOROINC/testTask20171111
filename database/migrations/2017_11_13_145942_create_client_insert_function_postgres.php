@@ -15,7 +15,7 @@ class CreateClientInsertFunctionPostgres extends Migration
     {
         //
         DB::unprepared('
-        CREATE FUNCTION ClientInsert(_fnr varchar(255), _lnr varchar(255) , pc varchar(255) , em varchar(255) , adr varchar(255), _cr varchar(255), _cor varchar(255), _ed date, _cd date)
+        CREATE OR REPLACE FUNCTION ClientInsert(_fnr varchar(255), _lnr varchar(255) , pc varchar(255) , em varchar(255) , adr varchar(255), _cr varchar(255), _cor varchar(255), _ed date, _cd date)
   RETURNS INT AS
   
   $BODY$
