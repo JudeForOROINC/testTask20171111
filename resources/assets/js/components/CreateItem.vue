@@ -1,6 +1,13 @@
 <template>
   <div>
     <h1>Create An Item</h1>
+    <div class="alert alert-danger print-error-msg" style="display:display">
+
+        <p>
+	{{ this.errors }}
+</p>
+
+    </div>
     <form v-on:submit.prevent="addItem">
       <div class="row">
         <div class="col-md-6">
@@ -67,7 +74,11 @@
       addItem(){
         let uri = 'http://localhost/api/clients';
         this.axios.post(uri, this.item).then((response) => {
+	  if(response.data.error){
+	    this.errors = response.data.error;
+} else {
           this.$router.push({name: 'DisplayItem'})
+}
         })
     }
   }

@@ -16249,6 +16249,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -16263,7 +16270,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var uri = 'http://localhost/api/clients';
       this.axios.post(uri, this.item).then(function (response) {
-        _this.$router.push({ name: 'DisplayItem' });
+        if (response.data.error) {
+          _this.errors = response.data.error;
+        } else {
+          _this.$router.push({ name: 'DisplayItem' });
+        }
       });
     }
   }
@@ -16279,6 +16290,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("h1", [_vm._v("Create An Item")]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "alert alert-danger print-error-msg",
+        staticStyle: { display: "display" }
+      },
+      [_c("p", [_vm._v("\n\t" + _vm._s(this.errors) + "\n")])]
+    ),
     _vm._v(" "),
     _c(
       "form",
