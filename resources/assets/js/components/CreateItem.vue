@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Create An Item</h1>
+    <h1>Create Client</h1>
 <div class="row">
           <div class="col-md-10"></div>
           <div class="col-md-2"><router-link :to="{ name: 'DisplayItem' }" class="btn btn-success">Return to Items</router-link></div>

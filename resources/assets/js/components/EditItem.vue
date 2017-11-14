@@ -6,6 +6,13 @@
           <div class="col-md-2"><router-link :to="{ name: 'DisplayItem' }" class="btn btn-success">Return to Items</router-link></div>
         </div>
 
+<div class="alert alert-danger print-error-msg" style="display:none" v-show="Object.keys(errors).length">
+
+        <ul>
+    <li v-for="n in errors">{{ n }}</li>
+</ul>
+</div>
+
         <form v-on:submit.prevent="updateItem">
             <div class="form-group">
                 <label>Firstname:</label>
@@ -54,7 +61,8 @@
     export default{
         data(){
             return{
-                item:{}
+                item:{},
+		errors:{}
             }
         },
 
@@ -75,7 +83,11 @@
             {
               let uri = 'http://localhost/api/clients/'+this.$route.params.id;
                 this.axios.put(uri, this.item).then((response) => {
-                  this.$router.push({name: 'DisplayItem'});
+		  if(response.data.error){
+    		    this.errors = response.data.error;
+		  } else {
+                    this.$router.push({name: 'DisplayItem'});
+		  }
                 });
             }
         }

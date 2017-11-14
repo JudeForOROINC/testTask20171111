@@ -16294,7 +16294,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", [_vm._v("Create An Item")]),
+    _c("h1", [_vm._v("Create Client")]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-10" }),
@@ -16928,12 +16928,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            item: {}
+            item: {},
+            errors: {}
         };
     },
 
@@ -16956,7 +16964,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var uri = 'http://localhost/api/clients/' + this.$route.params.id;
             this.axios.put(uri, this.item).then(function (response) {
-                _this2.$router.push({ name: 'DisplayItem' });
+                if (response.data.error) {
+                    _this2.errors = response.data.error;
+                } else {
+                    _this2.$router.push({ name: 'DisplayItem' });
+                }
             });
         }
     }
@@ -16992,6 +17004,30 @@ var render = function() {
         1
       )
     ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: Object.keys(_vm.errors).length,
+            expression: "Object.keys(errors).length"
+          }
+        ],
+        staticClass: "alert alert-danger print-error-msg",
+        staticStyle: { display: "none" }
+      },
+      [
+        _c(
+          "ul",
+          _vm._l(_vm.errors, function(n) {
+            return _c("li", [_vm._v(_vm._s(n))])
+          })
+        )
+      ]
+    ),
     _vm._v(" "),
     _c(
       "form",
