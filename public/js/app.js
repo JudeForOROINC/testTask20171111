@@ -16256,11 +16256,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      item: {}
+      item: {},
+      errors: {}
     };
   },
 
@@ -16291,13 +16296,48 @@ var render = function() {
   return _c("div", [
     _c("h1", [_vm._v("Create An Item")]),
     _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-10" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-2" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-success",
+              attrs: { to: { name: "DisplayItem" } }
+            },
+            [_vm._v("Return to Items")]
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: Object.keys(_vm.errors).length,
+            expression: "Object.keys(errors).length"
+          }
+        ],
         staticClass: "alert alert-danger print-error-msg",
-        staticStyle: { display: "display" }
+        staticStyle: { display: "none" }
       },
-      [_c("p", [_vm._v("\n\t" + _vm._s(this.errors) + "\n")])]
+      [
+        _c(
+          "ul",
+          _vm._l(_vm.errors, function(n) {
+            return _c("li", [_vm._v(_vm._s(n))])
+          })
+        )
+      ]
     ),
     _vm._v(" "),
     _c(

@@ -1,11 +1,15 @@
 <template>
   <div>
     <h1>Create An Item</h1>
-    <div class="alert alert-danger print-error-msg" style="display:display">
+<div class="row">
+          <div class="col-md-10"></div>
+          <div class="col-md-2"><router-link :to="{ name: 'DisplayItem' }" class="btn btn-success">Return to Items</router-link></div>
+</div>
+    <div class="alert alert-danger print-error-msg" style="display:none" v-show="Object.keys(errors).length">
 
-        <p>
-	{{ this.errors }}
-</p>
+        <ul>
+	<li v-for="n in errors">{{ n }}</li>
+</ul>
 
     </div>
     <form v-on:submit.prevent="addItem">
@@ -67,7 +71,8 @@
   export default {
     data(){
         return{
-          item:{}
+          item:{},
+	    errors:{}
         }
     },
     methods: {
