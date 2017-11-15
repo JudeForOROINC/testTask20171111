@@ -33,9 +33,13 @@ class ClientTest extends TestCase
         $responce = $this->json('POST', '/api/clients', $user->toArray(), $headers);
 //var_dump($responce->message); die;
 //var_dump($responce->content());die;
-            $responce->assertStatus(200)
+            $responce->assertStatus(201)
 //;
-            ->assertJson(['personal_code' => 'Mama mila ramu!']);
+->assertJson([[
+           'clientinsert' => 51,
+         ]]);
+$this->assertDatabaseHas('clients_view', ['id'=>51]);
+//            ->assertJson(['personal_code' => 'Mama mila ramu!']);
     }
 
     public function testsClientsAreUpdatedCorrectly()
@@ -56,9 +60,12 @@ class ClientTest extends TestCase
 
         $response = $this->json('PUT', '/api/clients/' . $article->id, $payload, $headers)
             ->assertStatus(200)
-            ->assertJson([ 
-                'personal_code' => 'Mama_mila_ramu', 
-        ]);
+            ->assertJson([[ 
+                'clientedit' => 51, 
+        ]]);
+	$this->assertDatabaseHas('clients_view',['id'=>51,
+'personal_code' => 'Mama_mila_ramu',
+]);
     }
 
     public function testsClientsAreDeletedCorrectly()
@@ -78,13 +85,16 @@ class ClientTest extends TestCase
 
     public function testClientsAreListedCorrectly()
     {
-   $article = factory(\App\Client::class)->create([
-            'personal_code' => 'Mama mila ramu! first',
-            
-        ]);
 
    $article = factory(\App\Client::class)->create([
+            'personal_code' => 'Mama mila ramu! first',
+	    'email' => 'secret@mail.com',
+            
+        ]);
+//var_dump($article);die;
+   $article = factory(\App\Client::class)->create([
             'personal_code' => 'Mama mila ramu! second',
+	    'email' => 'secrets@mail.com'
             
         ]);
 
@@ -93,15 +103,37 @@ class ClientTest extends TestCase
 //        $headers = ['Authorization' => "Bearer $token"];
         $headers = [];
 
-        $response = $this->json('GET', '/api/clients', [], $headers)
-            ->assertStatus(200)
-            ->assertJson([
-                [ 'personal_code' => 'Mama mila ramu! first' ],
-                [ 'personal_code' => 'Mama mila ramu! second' ]
-            ])
-            ->assertJsonStructure([
-                '*' => ['id', 'body', 'title', 'created_at', 'updated_at'],
-            ]);
+        $response = $this->json('GET', '/api/clients', [], $headers);
+$response->
+assertJson([
+'personal_code' => 'Mama mila ramu! first',
+	    'email' => 'secret@mail.com',
+]);
+return;
+$response->
+assertJson([
+[
+        "id"=> 15,
+        "lastname_id"=> "Altenwerth",
+        "firstname_id"=> "Hosea",
+        "personal_code"=> "Qui eos consequatur quia placeat possimus tempore.",
+        "email"=> "juvenal.friesen@yahoo.com",
+        "adress"=> "689 Luettgen Isle",
+        "city_id"=> "Lake Hyman",
+        "country_id"=> "Norway"
+    ]
+]);
+
+//        $response = $this->json('GET', '/api/clients', [], $headers)
+
+//            ->assertStatus(200)
+//            ->assertJson([
+//                [ 'personal_code' => 'Mama mila ramu! first' ],
+//                [ 'personal_code' => 'Mama mila ramu! second' ]
+//            ])
+//            ->assertJsonStructure([
+//                '*' => ['id', 'body', 'title', 'created_at', 'updated_at'],
+//            ]);
     }
 
 

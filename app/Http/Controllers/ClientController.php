@@ -61,10 +61,10 @@ array_fill_keys([
 'cd',
 ],null),$post);
 //var_dump($post); die('new exception!');
-return $data = \DB::select( 'select ClientInsert(:firstname_id,:lastname_id,:personal_code,:email,:adress,:city_id,:country_id,:ed,:cd);',
+$data = \DB::select( 'select ClientInsert(:firstname_id,:lastname_id,:personal_code,:email,:adress,:city_id,:country_id,:ed,:cd);',
 $post);
 //country_id
-//	    return response()->json(['success'=>'Added new records.']);
+	    return response()->json($data,201);
 
         }
 
@@ -121,6 +121,6 @@ $post);
         $article = Client::findOrFail($id);
         $article->delete();
 
-        return 204;
+        return response()->json([],204);
     }
 }
