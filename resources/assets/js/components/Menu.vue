@@ -18,8 +18,15 @@
 <router-link :to="{ name: 'DisplayItem' }" >Clients</router-link>
 
 </li>
-	    <li><a href="#">File load/upload</a></li>
-	    <li><a href="#">Login</a></li>
+	    <li v-bind:class="{ active: isActive('UploadClients') }">
+	      <router-link :to="{ name: 'UploadClients' }" >File upload</router-link>
+            </li>
+	    <li v-bind:class="{ active: isActive('DownloadClients') }">
+	      <router-link :to="{ name: 'DownloadClients' }" >File download</router-link>
+            </li>
+	    <li v-bind:class="{ active: isActive('Login') }">
+	      <router-link :to="{ name: 'Login' }" >Login</router-link>
+            </li>
 	    <li v-bind:class="{ active: isActive('About') }" >
 <router-link :to="{ name: 'About' }" >About</router-link>
 
