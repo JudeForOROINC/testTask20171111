@@ -1,5 +1,6 @@
 <template>
   <div>
+	<MenuItem></MenuItem>
     <h1>Create Client</h1>
 <div class="row">
           <div class="col-md-10"></div>

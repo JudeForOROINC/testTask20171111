@@ -1,7 +1,12 @@
 // App.vue
 
 <template>
+	
     <div class="container">
+	<div>
+<menu_item></menu_item>
+	</div>
+
         <div>
             <transition name="fade">
                 <router-view></router-view>

@@ -14,7 +14,12 @@ import Example from './components/Example.vue';
 import CreateItem from './components/CreateItem.vue';
 import DisplayItem from './components/DisplayItem.vue';
 import EditItem from './components/EditItem.vue';
+import MenuItem from './components/Menu.vue';
+import About from './components/About.vue';
 
+Vue.component('menu_item', 
+MenuItem
+);
 const routes = [
   {
     name: 'CreateItem',
@@ -30,6 +35,11 @@ const routes = [
       name: 'EditItem',
       path: '/edit/:id',
       component: EditItem
+   },
+  {
+      name: 'About',
+      path: '/about',
+      component: About
    }
 ];
 const router = new VueRouter({ mode: 'history', routes: routes});
