@@ -14,23 +14,37 @@
 
         <div class="collapse navbar-collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-	    <li class="active">
-<router-link :to="{ name: 'DisplayItem' }" class="btn btn-primary">Clients</router-link>
+	    <li  v-bind:class="{ active: isActive('DisplayItem') }" >
+<router-link :to="{ name: 'DisplayItem' }" >Clients</router-link>
 
 </li>
 	    <li><a href="#">File load/upload</a></li>
 	    <li><a href="#">Login</a></li>
-	    <li>
+	    <li v-bind:class="{ active: isActive('About') }" >
 <router-link :to="{ name: 'About' }" >About</router-link>
 
 </li>
 	    <li><a href="#">Logout</a></li>
-<li>
-<router-link :to="{ name: 'CreateItem' }" class="btn btn-primary">Create Item</router-link>
-</li>
           </ul>
         </div>
       </div>
     </nav>	
   </div>
 </template>
+
+<script>
+    export default {
+        data(){
+            return{
+                items: []
+            }
+        },
+
+        methods: {
+            isActive(name)
+            {
+		return name == this.$route.name;
+            }
+        }
+    }
+</script>

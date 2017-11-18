@@ -47215,7 +47215,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(74)
 /* template */
 var __vue_template__ = __webpack_require__(71)
 /* template functional */
@@ -47279,14 +47279,11 @@ var render = function() {
             _c("ul", { staticClass: "nav navbar-nav" }, [
               _c(
                 "li",
-                { staticClass: "active" },
+                { class: { active: _vm.isActive("DisplayItem") } },
                 [
                   _c(
                     "router-link",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { to: { name: "DisplayItem" } }
-                    },
+                    { attrs: { to: { name: "DisplayItem" } } },
                     [_vm._v("Clients")]
                   )
                 ],
@@ -47299,6 +47296,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "li",
+                { class: { active: _vm.isActive("About") } },
                 [
                   _c("router-link", { attrs: { to: { name: "About" } } }, [
                     _vm._v("About")
@@ -47307,22 +47305,7 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._m(3),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { to: { name: "CreateItem" } }
-                    },
-                    [_vm._v("Create Item")]
-                  )
-                ],
-                1
-              )
+              _vm._m(3)
             ])
           ]
         )
@@ -47477,6 +47460,62 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-10e9c534", module.exports)
   }
 }
+
+/***/ }),
+/* 74 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            items: []
+        };
+    },
+
+
+    methods: {
+        isActive: function isActive(name) {
+            return name == this.$route.name;
+        }
+    }
+});
 
 /***/ })
 /******/ ]);
