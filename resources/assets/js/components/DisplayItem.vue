@@ -1,6 +1,36 @@
 <template>
+    
     <div>
-        <h1>Clients</h1>
+<!-- Классы navbar и navbar-default (базовые классы меню) -->
+<nav class="navbar navbar-default">
+  <!-- Контейнер (определяет ширину Navbar) -->
+  <div class="container-fluid">
+    <!-- Заголовок -->
+    <div class="navbar-header">
+      <!-- Кнопка «Гамбургер» отображается только в мобильном виде (предназначена для открытия основного содержимого Navbar) -->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+
+      </button>
+      <!-- Бренд или название сайта (отображается в левой части меню) -->
+      <a class="navbar-brand" href="#">Test Task</a>
+    </div>
+    <!-- Основная часть меню (может содержать ссылки, формы и другие элементы) -->
+    <div class="collapse navbar-collapse" id="navbar-main">
+      <!-- Содержимое основной части -->
+<ul class="nav navbar-nav">
+        <li class="active"><a href="#">Ссылка 1</a></li>
+        <li><a href="#">Ссылка 2</a></li>
+        <li><a href="#">Ссылка 3</a></li>
+        <li><a href="#">Ссылка 4</a></li>
+        <li><a href="#">Ссылка 5</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>	
+        <h1>Clients!!!</h1>
 
         <div class="row">
           <div class="col-md-10"></div>
