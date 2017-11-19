@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Client;
 use Validator;
+use Storage;
 
 class ClientController extends Controller
 {
@@ -123,4 +124,26 @@ $post);
 
         return response()->json([],204);
     }
+
+    public function upload(Request $request)
+    {
+	return response()->json([],404);
+    }
+
+    public function download(Request $request)
+    {
+	$clients = \DB::table('clients_view')->get();
+	$data = json_encode($clients);
+//store it or throw.
+
+      	$file = time() . '_file.json';
+        if (Storage::put($file,$clients)){
+	    $pathToFile=storage_path()."/app/".$file;
+		//TODO: clear storage?
+	    return response()->download($pathToFile,'clients_file.json',['Content-Type'=>'application/json']);
+        };
+
+ 	return response()->json([],404);
+    }
+
 }

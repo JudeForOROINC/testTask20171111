@@ -1,5 +1,5 @@
 <template>
   <div>
-    TODO: create form for file downloading...
+    download file: <a href="http://localhost/api/clients/download">here</a>
   </div>
 </template>

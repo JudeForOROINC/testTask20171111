@@ -18,7 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('clients', 'ClientController@index');
+Route::get('clients/download', 'ClientController@download');
 Route::get('clients/{id}', 'ClientController@show');
 Route::post('clients', 'ClientController@store');
 Route::put('clients/{id}', 'ClientController@update');
 Route::delete('clients/{id}', 'ClientController@delete');
+Route::post('clients/upload', 'ClientController@upload');
+
+
