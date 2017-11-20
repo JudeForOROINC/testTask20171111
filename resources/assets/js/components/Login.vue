@@ -1,7 +1,5 @@
 <template>
   <div>
-<router-link to="Login" v-if="!isLoggedIn">Login</router-link>
-    <a href="#" v-if="isLoggedIn" @click="logout">Logout</a> 
 
     <form v-on:submit.prevent="doLogin">
       <div class="row">

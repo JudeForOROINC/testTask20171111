@@ -24,14 +24,14 @@
 	    <li v-bind:class="{ active: isActive('DownloadClients') }">
 	      <router-link :to="{ name: 'DownloadClients' }" >File download</router-link>
             </li>
-	    <li v-bind:class="{ active: isActive('Login') }">
+	    <li v-bind:class="{ active: isActive('Login') }" v-if="!isLoggedIn" >
 	      <router-link :to="{ name: 'Login' }" >Login</router-link>
             </li>
-	    <li v-bind:class="{ active: isActive('About') }" >
+	    <li v-bind:class="{ active: isActive('About') }"  >
 <router-link :to="{ name: 'About' }" >About</router-link>
 
 </li>
-	    <li><a href="#">Logout</a></li>
+	    <li><a href="#" @click="logout" v-if="isLoggedIn">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -51,7 +51,17 @@
             isActive(name)
             {
 		return name == this.$route.name;
-            }
-        }
+            },
+logout() {
+     this.$store.dispatch('logout');
+//console.log(this.$store.getters.token);
+this.$router.push({name: 'About'})
+    }
+        },
+computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    }
+}
     }
 </script>

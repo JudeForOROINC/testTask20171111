@@ -90,6 +90,7 @@ const store = new Vuex.Store({
   },
   actions: {
    login({ commit }, creds) {
+    localStorage.removeItem("token");
      commit(LOGIN); // show spinner
      return new Promise(resolve => {
  let uri = 'http://localhost/api/login';
@@ -101,11 +102,11 @@ console.log(response.data.error) ;
 commit(LOGOUT);
 } else {
 //console.log(response.data) ;         
-console.log('=======') ;  
-console.log(response.data.data.api_token) ;         
-console.log('=======') ;  
+//console.log('=======') ;  
+//console.log(response.data.data.api_token) ;         
+//console.log('=======') ;  
         localStorage.setItem("token", response.data.data.api_token);
-console.log('=======') ;  
+//console.log('=======') ;  
  commit(LOGIN_SUCCESS);
 resolve();
 //this.$router.push({name: 'DisplayItem'})

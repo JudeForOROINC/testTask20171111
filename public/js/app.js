@@ -1198,6 +1198,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
 
       var commit = _ref.commit;
 
+      localStorage.removeItem("token");
       commit(LOGIN); // show spinner
       return new Promise(function (resolve) {
         var uri = 'http://localhost/api/login';
@@ -1209,11 +1210,11 @@ var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
             commit(LOGOUT);
           } else {
             //console.log(response.data) ;         
-            console.log('=======');
-            console.log(response.data.data.api_token);
-            console.log('=======');
+            //console.log('=======') ;  
+            //console.log(response.data.data.api_token) ;         
+            //console.log('=======') ;  
             localStorage.setItem("token", response.data.data.api_token);
-            console.log('=======');
+            //console.log('=======') ;  
             commit(LOGIN_SUCCESS);
             resolve();
             //this.$router.push({name: 'DisplayItem'})
@@ -48326,6 +48327,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         isActive: function isActive(name) {
             return name == this.$route.name;
+        },
+        logout: function logout() {
+            this.$store.dispatch('logout');
+            //console.log(this.$store.getters.token);
+            this.$router.push({ name: 'About' });
+        }
+    },
+    computed: {
+        isLoggedIn: function isLoggedIn() {
+            return this.$store.getters.isLoggedIn;
         }
     }
 });
@@ -48390,16 +48401,18 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c(
-                "li",
-                { class: { active: _vm.isActive("Login") } },
-                [
-                  _c("router-link", { attrs: { to: { name: "Login" } } }, [
-                    _vm._v("Login")
-                  ])
-                ],
-                1
-              ),
+              !_vm.isLoggedIn
+                ? _c(
+                    "li",
+                    { class: { active: _vm.isActive("Login") } },
+                    [
+                      _c("router-link", { attrs: { to: { name: "Login" } } }, [
+                        _vm._v("Login")
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "li",
@@ -48412,7 +48425,15 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._m(1)
+              _c("li", [
+                _vm.isLoggedIn
+                  ? _c(
+                      "a",
+                      { attrs: { href: "#" }, on: { click: _vm.logout } },
+                      [_vm._v("Logout")]
+                    )
+                  : _vm._e()
+              ])
             ])
           ]
         )
@@ -48449,12 +48470,6 @@ var staticRenderFns = [
         _vm._v("Test Task")
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Logout")])])
   }
 ]
 render._withStripped = true
@@ -48811,8 +48826,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -48869,96 +48882,82 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      !_vm.isLoggedIn
-        ? _c("router-link", { attrs: { to: "Login" } }, [_vm._v("Login")])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.isLoggedIn
-        ? _c("a", { attrs: { href: "#" }, on: { click: _vm.logout } }, [
-            _vm._v("Logout")
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              _vm.doLogin($event)
-            }
+  return _c("div", [
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            _vm.doLogin($event)
           }
-        },
-        [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("email:")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.item.email,
-                      expression: "item.email"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.item.email },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.item, "email", $event.target.value)
-                    }
+        }
+      },
+      [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("email:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.item.email,
+                    expression: "item.email"
                   }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("password")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.item.password,
-                      expression: "item.password"
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.item.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.item.password },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.item, "password", $event.target.value)
-                    }
+                    _vm.$set(_vm.item, "email", $event.target.value)
                   }
-                })
-              ])
+                }
+              })
             ])
           ]),
           _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _vm._m(0)
-        ]
-      )
-    ],
-    1
-  )
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("password")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.item.password,
+                    expression: "item.password"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.item.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.item, "password", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
