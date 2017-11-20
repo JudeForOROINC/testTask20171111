@@ -56,6 +56,7 @@ logout() {
      this.$store.dispatch('logout');
 //console.log(this.$store.getters.token);
 this.$router.push({name: 'About'})
+//TODO : Fix log out from server = send a request;
     }
         },
 computed: {

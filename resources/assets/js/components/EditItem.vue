@@ -76,7 +76,9 @@
         methods: {
             getItem()
             {
-              let uri = `http://localhost/api/clients/${this.$route.params.id}`;
+              let uri = `../api/clients/${this.$route.params.id}`;
+//              let uri = `http://localhost/api/clients/${this.$route.params.id}`;
+//http://localhost/edit/api/clients/30
 let token = this.$store.getters.token
 	let config = {
 	headers: {'Authorization': "Bearer "+token}
@@ -88,7 +90,8 @@ let token = this.$store.getters.token
 
             updateItem()
             {
-              let uri = 'http://localhost/api/clients/'+this.$route.params.id;
+              let uri = '../api/clients/'+this.$route.params.id;
+//              let uri = 'http://localhost/api/clients/'+this.$route.params.id;
 let token = this.$store.getters.token
 	let config = {
 	headers: {'Authorization': "Bearer "+token}

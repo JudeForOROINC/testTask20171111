@@ -47163,7 +47163,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     addItem: function addItem() {
       var _this = this;
 
-      var uri = 'http://localhost/api/clients';
+      var uri = '../api/clients';
+      //        let uri = 'http://localhost/api/clients';
       var token = this.$store.getters.token;
       var config = {
         headers: { 'Authorization': "Bearer " + token }
@@ -47614,10 +47615,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.$store.getters.isLoggedIn) {
-                var uri = 'http://localhost/api/clients';
-                console.log(this.$store);
+                var uri = 'api/clients';
+                //            let uri = 'http://localhost/api/clients';
+                //console.log(this.$store);
                 var token = this.$store.getters.token;
-                console.log(token);
+                //console.log(token);
                 this.axios.get(uri, {
                     // baseURL: 'https://some-domain.com/api/',
                     //  timeout: 1000,
@@ -47630,7 +47632,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteItem: function deleteItem(id, index) {
             var _this2 = this;
 
-            var uri = 'http://localhost/api/clients/' + id;
+            var uri = 'api/clients/' + id;
+            //              let uri = `http://localhost/api/clients/${id}`;
             var token = this.$store.getters.token;
             var config = {
                 headers: { 'Authorization': "Bearer " + token }
@@ -47901,7 +47904,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getItem: function getItem() {
             var _this = this;
 
-            var uri = 'http://localhost/api/clients/' + this.$route.params.id;
+            var uri = '../api/clients/' + this.$route.params.id;
+            //              let uri = `http://localhost/api/clients/${this.$route.params.id}`;
+            //http://localhost/edit/api/clients/30
             var token = this.$store.getters.token;
             var config = {
                 headers: { 'Authorization': "Bearer " + token }
@@ -47913,7 +47918,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         updateItem: function updateItem() {
             var _this2 = this;
 
-            var uri = 'http://localhost/api/clients/' + this.$route.params.id;
+            var uri = '../api/clients/' + this.$route.params.id;
+            //              let uri = 'http://localhost/api/clients/'+this.$route.params.id;
             var token = this.$store.getters.token;
             var config = {
                 headers: { 'Authorization': "Bearer " + token }
@@ -48332,6 +48338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch('logout');
             //console.log(this.$store.getters.token);
             this.$router.push({ name: 'About' });
+            //TODO : Fix log out from server = send a request;
         }
     },
     computed: {
@@ -48842,7 +48849,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     do_doLogin: function do_doLogin() {
       var _this = this;
 
-      var uri = 'http://localhost/api/login';
+      var uri = '../api/login';
+      //        let uri = 'http://localhost/api/login';
       this.axios.post(uri, this.item).then(function (response) {
         if (response.data.error) {
           _this.errors = response.data.error;

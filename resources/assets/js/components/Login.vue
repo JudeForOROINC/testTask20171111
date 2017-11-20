@@ -36,7 +36,8 @@
     },
     methods: {
       do_doLogin(){
-        let uri = 'http://localhost/api/login';
+        let uri = '../api/login';
+//        let uri = 'http://localhost/api/login';
         this.axios.post(uri, this.item).then((response) => {
 	  if(response.data.error){
 	    this.errors = response.data.error;

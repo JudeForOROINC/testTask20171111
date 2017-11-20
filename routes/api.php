@@ -21,10 +21,11 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 
+Route::get('clients/download', 'ClientController@download');
 Route::group(['middleware' => 'auth:api'], function() {
    
 Route::get('clients', 'ClientController@index');
-Route::get('clients/download', 'ClientController@download');
+
 Route::get('clients/{id}', 'ClientController@show');
 Route::post('clients', 'ClientController@store');
 Route::put('clients/{id}', 'ClientController@update');

@@ -82,7 +82,8 @@
     },
     methods: {
       addItem(){
-        let uri = 'http://localhost/api/clients';
+        let uri = '../api/clients';
+//        let uri = 'http://localhost/api/clients';
 	let token = this.$store.getters.token
 	let config = {
 	headers: {'Authorization': "Bearer "+token}

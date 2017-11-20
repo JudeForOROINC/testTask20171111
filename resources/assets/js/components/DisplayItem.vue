@@ -51,10 +51,11 @@
             fetchItems()
             {
 if (this.$store.getters.isLoggedIn){
-              let uri = 'http://localhost/api/clients';
-console.log(this.$store);
+              let uri = 'api/clients';
+  //            let uri = 'http://localhost/api/clients';
+//console.log(this.$store);
 let token = this.$store.getters.token;
-console.log(token);
+//console.log(token);
               this.axios.get(uri,{
  // baseURL: 'https://some-domain.com/api/',
 //  timeout: 1000,
@@ -66,7 +67,8 @@ console.log(token);
             },
             deleteItem(id, index)
             {
-              let uri = `http://localhost/api/clients/${id}`;
+              let uri = `api/clients/${id}`;
+//              let uri = `http://localhost/api/clients/${id}`;
 let token = this.$store.getters.token
 	let config = {
 	headers: {'Authorization': "Bearer "+token}
