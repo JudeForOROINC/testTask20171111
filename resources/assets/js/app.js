@@ -9,6 +9,10 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 Vue.use(VueAxios, axios);
 
+import Vuex from 'vuex';
+//vuex
+Vue.use(Vuex);
+
 import App from './components/App.vue';
 import Example from './components/Example.vue';
 import CreateItem from './components/CreateItem.vue';
@@ -63,5 +67,72 @@ const routes = [
    }
 
 ];
+
+const LOGIN = "LOGIN";
+const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+const LOGOUT = "LOGOUT";
+
+const store = new Vuex.Store({
+  state: {
+    isLoggedIn: !!localStorage.getItem("token")
+  },
+  mutations: {
+    [LOGIN] (state) {
+      state.pending = true;
+    },
+    [LOGIN_SUCCESS] (state) {
+      state.isLoggedIn = true;
+      state.pending = false;
+    },
+    [LOGOUT](state) {
+      state.isLoggedIn = false;
+    }
+  },
+  actions: {
+   login({ commit }, creds) {
+     commit(LOGIN); // show spinner
+     return new Promise(resolve => {
+ let uri = 'http://localhost/api/login';
+//console.log(creds);
+        axios.post(uri, creds).then((response) => {
+	  if(response.data.error){
+	    this.errors = response.data.error;
+console.log(response.data.error) ; 
+commit(LOGOUT);
+} else {
+//console.log(response.data) ;         
+console.log('=======') ;  
+console.log(response.data.data.api_token) ;         
+console.log('=======') ;  
+        localStorage.setItem("token", response.data.data.api_token);
+console.log('=======') ;  
+ commit(LOGIN_SUCCESS);
+resolve();
+//this.$router.push({name: 'DisplayItem'})
+}
+        })
+//       setTimeout(() => {
+//         localStorage.setItem("token", "JWT");
+  //       commit(LOGIN_SUCCESS);
+    //     resolve();
+      // }, 1000);
+     });
+   },
+   logout({ commit }) {
+     localStorage.removeItem("token");
+     commit(LOGOUT);
+   }
+  },
+  getters: {
+    isLoggedIn: state => {
+      return state.isLoggedIn
+     },
+	
+	
+    token: state => {
+	return localStorage.getItem("token");
+}
+  }
+}); 
 const router = new VueRouter({ mode: 'history', routes: routes});
-new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+new Vue(Vue.util.extend({ router, store }, App)).$mount('#app');

@@ -50,16 +50,23 @@
         methods: {
             fetchItems()
             {
+if (this.$store.getters.isLoggedIn){
               let uri = 'http://localhost/api/clients';
-              this.axios.get(uri).then((response) => {
+console.log(this.$store);
+let token = this.$store.getters.token;
+console.log(token);
+              this.axios.get(uri,{
+ // baseURL: 'https://some-domain.com/api/',
+//  timeout: 1000,
+  headers: {'Authorization': "Bearer "+token}
+}
+).then((response) => {
                   this.items = response.data;
-              });
+              });}
             },
             deleteItem(id, index)
             {
               let uri = `http://localhost/api/clients/${id}`;
-//		this.items.splice(index,1);
-		//var app = this;
 		this.axios.delete(uri).then( (responce) =>
 {
 		if(responce.data == '204')
@@ -79,6 +86,12 @@
 //}
 //  });
             }
-        }
+
+        },
+computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    }
+}
     }
 </script>
