@@ -140,11 +140,11 @@ assertJson([
     public function testsGetClientsSuccessfully()
     {
         $payload = [
-//            'name' => 'John',
-  //          'email' => 'john@toptal.com',
-   //         'password' => 'toptal123',
-    //        'password_confirmation' => 'toptal123',
-	      'personal_code' => 'Mama mila ramu!'	
+            'name' => 'TestName',
+            'email' => 'test@gmail.com',
+            'password' => 'test123',
+            'password_confirmation' => 'test123',
+	      //'personal_code' => 'Mama mila ramu!'	
         ];
 
         $this->json('post', '/api/register', $payload)
@@ -165,11 +165,16 @@ assertJson([
     {
         $this->json('post', '/api/register')
             ->assertStatus(422)
-            ->assertJson([
+            ->assertJsonFragment([
                 'name' => ['The name field is required.'],
                 'email' => ['The email field is required.'],
                 'password' => ['The password field is required.'],
             ]);
+    //        ->assertJson([
+   //             'name' => ['The name field is required.'],
+  //              'email' => ['The email field is required.'],
+ //               'password' => ['The password field is required.'],
+//            ]);
     }
 
     public function testsRequirePasswordConfirmation()
@@ -182,7 +187,7 @@ assertJson([
 
         $this->json('post', '/api/register', $payload)
             ->assertStatus(422)
-            ->assertJson([
+            ->assertJsonFragment([
                 'password' => ['The password confirmation does not match.'],
             ]);
     }

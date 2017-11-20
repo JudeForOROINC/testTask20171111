@@ -1,5 +1,17 @@
 <template>
   <div>
-    TODO: create form for file uploading...
+    <form>
+      <input type="file" name="fileUpload" @change="onFileChange">
+    </form>
   </div>
 </template>
+
+<script>
+    export default {
+        methods: {
+            onFileChange() {
+                //
+            }
+        }
+    }
+</script>
