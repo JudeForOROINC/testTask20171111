@@ -179,5 +179,46 @@ class ClientTest extends TestCase
             ]);
     }
 
+    public function testsLoginSucsess()
+    {
+//[{"data":{"api_token":"xtiuolswvo7aY64Rqd5cbKrDAGz0lO7QR4GDmXowZlHrKkuecnM9ZztRgEPx","created_at":"2017-11-20 18:19:08","email":"admin@test.com","id":1,"name":"Administrator","updated_at":"2017-11-20 18:19:08"}}].
+
+        $payload = [
+            
+            'email'    => 'admin@test.com',
+            'password' => 'toptal',
+        ];
+        $this->json('post', '/api/login', $payload )
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                'name'     => 'Administrator',
+                'email'    => 'admin@test.com',
+                
+            ])
+            ->assertJsonStructure([
+	        'data' => 	[
+		    'api_token',
+		    'created_at',
+		    'email',
+		    'id',
+		    'name',
+		    'updated_at',
+		]
+]);
+    }
+  
+    public function testsLoginRequiresPassAndName()
+    {
+//[{"errors":{"email":["The email field is required."],"password":["The password field is required."]},"message":"The given data was invalid."}].
+
+        $this->json('post', '/api/login')
+            ->assertStatus(422)
+            ->assertJsonFragment([
+ 
+                'email'    => ['The email field is required.'],
+                'password' => ['The password field is required.'],
+            ]);
+    }
+
 
 }
