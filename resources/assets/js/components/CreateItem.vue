@@ -83,7 +83,11 @@
     methods: {
       addItem(){
         let uri = 'http://localhost/api/clients';
-        this.axios.post(uri, this.item).then((response) => {
+	let token = this.$store.getters.token
+	let config = {
+	headers: {'Authorization': "Bearer "+token}
+}
+        this.axios.post(uri, this.item, config).then((response) => {
 	  if(response.data.error){
 	    this.errors = response.data.error;
 } else {

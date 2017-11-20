@@ -67,9 +67,13 @@ console.log(token);
             deleteItem(id, index)
             {
               let uri = `http://localhost/api/clients/${id}`;
-		this.axios.delete(uri).then( (responce) =>
+let token = this.$store.getters.token
+	let config = {
+	headers: {'Authorization': "Bearer "+token}
+};
+		this.axios.delete(uri,config).then( (responce) =>
 {
-		if(responce.data == '204')
+		if(responce.status == '204')
 {
               this.items.splice(index, 1);
 }

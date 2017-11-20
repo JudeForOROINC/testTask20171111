@@ -5,6 +5,8 @@
           <div class="col-md-10"></div>
           <div class="col-md-2"><router-link :to="{ name: 'DisplayItem' }" class="btn btn-success">Return to Items</router-link></div>
         </div>
+<router-link :to="{ name: 'Login' }" v-if="!isLoggedIn" class="btn btn-default">Login</router-link>
+<div v-else>
 
 <div class="alert alert-danger print-error-msg" style="display:none" v-show="Object.keys(errors).length">
 
@@ -53,6 +55,7 @@
                 <button class="btn btn-primary">Update</button>
             </div>
         </form>
+</div>
     </div>
 </template>
 
@@ -74,7 +77,11 @@
             getItem()
             {
               let uri = `http://localhost/api/clients/${this.$route.params.id}`;
-                this.axios.get(uri).then((response) => {
+let token = this.$store.getters.token
+	let config = {
+	headers: {'Authorization': "Bearer "+token}
+}
+                this.axios.get(uri,config).then((response) => {
                     this.item = response.data;
                 });
             },
@@ -82,7 +89,11 @@
             updateItem()
             {
               let uri = 'http://localhost/api/clients/'+this.$route.params.id;
-                this.axios.put(uri, this.item).then((response) => {
+let token = this.$store.getters.token
+	let config = {
+	headers: {'Authorization': "Bearer "+token}
+}
+                this.axios.put(uri, this.item,config).then((response) => {
 		  if(response.data.error){
     		    this.errors = response.data.error;
 		  } else {
@@ -90,6 +101,11 @@
 		  }
                 });
             }
-        }
+        },
+computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    }
+}
     }
 </script>
