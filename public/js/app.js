@@ -48638,13 +48638,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    methods: {
-        onFileChange: function onFileChange() {
-            //
+  methods: {
+    onFileChange: function onFileChange(e) {
+      //       OnFileChange(e){
+
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      //  const formData = new FormData();
+
+      //        if (!fileList.length) return;
+
+      // append the files to FormData
+      //      Array
+      //      .from(Array(files.length).keys())
+      //    .map(x => {
+      //    formData.append(fieldName, files[x], files[x].name);
+      // });
+
+      // save it
+      //this.save(formData);
+
+      var v = this;
+      v.file = files[0];
+      v.classes.disabled = false;
+
+      //},
+    },
+    save: function save(formData) {
+      var _this = this;
+
+      // upload data to the server
+      this.currentStatus = STATUS_SAVING;
+
+      upload(formData).then(function (x) {
+        _this.uploadedFiles = [].concat(x);
+        _this.currentStatus = STATUS_SUCCESS;
+      }).catch(function (err) {
+        _this.uploadError = err.response;
+        _this.currentStatus = STATUS_FAILED;
+      });
+    },
+    UploadFile: function UploadFile() {
+      var _this2 = this;
+
+      var uri = '../api/clients/upload';
+      //        let uri = 'http://localhost/api/clients';
+      var token = this.$store.getters.token;
+      var config = {
+        headers: { 'Authorization': "Bearer " + token }
+      };
+      var form = new FormData();
+      form.append('photo', this.file, this.file.name);
+
+      this.axios.post(uri, form, config).then(function (response) {
+        if (response.data.error) {
+          _this2.errors = response.data.error;
+        } else {
+          _this2.$router.push({ name: 'DisplayItem' });
         }
+      });
     }
+  },
+  computed: {
+    isLoggedIn: function isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    }
+  }
 });
 
 /***/ }),
@@ -48656,15 +48722,42 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("form", [
-      _c("input", {
-        attrs: { type: "file", name: "fileUpload" },
-        on: { change: _vm.onFileChange }
-      })
-    ])
+    _vm.isLoggedIn
+      ? _c("div", [
+          _c(
+            "form",
+            {
+              attrs: { enctype: "multipart/form-data" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  _vm.UploadFile($event)
+                }
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "file", name: "photo" },
+                on: { change: _vm.onFileChange }
+              }),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          )
+        ])
+      : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Upload")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
