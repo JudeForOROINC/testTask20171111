@@ -130,60 +130,54 @@ $post);
     public function upload(Request $request)
     {
 //die('ok!');
-$file = $request->file('photo');
-if($file->isValid()) {
-    $name = $file->store('images');
-}
-$contents = Storage::get($name);
+	$file = $request->file('photo');
+	if($file->isValid()) {
+	    $name = $file->store('images');
+	}
+	$contents = Storage::get($name);
 
-if ($json = json_decode($contents,true)){
-if (is_array($json)){
-$list_insert = 
-array_fill_keys([
+	if ($json = json_decode($contents,true)){
+	    if (is_array($json)){
+		$list_insert = 
+ 		    array_fill_keys([
 //'id',
-'firstname_id',
-'lastname_id',
-'personal_code',
-'email',
-'adress',
-'city_id',
-'country_id',
-'ed',
-'cd',
-],null);
+ 		    'firstname_id',
+ 		    'lastname_id',
+ 		    'personal_code',
+ 		    'email',
+ 		    'adress',
+ 		    'city_id',
+ 		    'country_id',
+ 		    'ed',
+ 		    'cd',
+		    ],null);
 
-$inserted = $edited=0;
+		$inserted = $edited=0;
 
-foreach($json as $raw){
+	        foreach($json as $raw){
 	//var_dump($raw);die;
-$post = array_replace(
-$list_insert,
-array_intersect_key($raw,$list_insert) );
-//$insert = $post;
-
-//var_dump($post); die('new exception!');
-//var_dump($insert);
-//var_dump($post);
-//die;
-$data = \DB::select( 'select ClientInsert(:firstname_id,:lastname_id,:personal_code,:email,:adress,:city_id,:country_id,:ed,:cd);',
+		    $post = array_replace(
+   		        $list_insert,
+		        array_intersect_key($raw,$list_insert) );
+		    $data = \DB::select( 'select ClientInsert(:firstname_id,:lastname_id,:personal_code,:email,:adress,:city_id,:country_id,:ed,:cd);',
 $post);
 
-if (!$data){
+		    if (!$data){
 //var_dump($post);die;
-$post['id']= $raw['id'] ? $raw['id'] : null;
-$data = \DB::select( 'select ClientEdit(:id,:firstname_id,:lastname_id,:personal_code,:email,:adress,:city_id,:country_id,:ed,:cd);',
-$post);
-$edited++;
-} else {
-$inserted++;
-}
+		    	$post['id']= $raw['id'] ? $raw['id'] : null;
+		    	$data = \DB::select( 'select ClientEdit(:id,:firstname_id,:lastname_id,:personal_code,:email,:adress,:city_id,:country_id,:ed,:cd);',
+			$post);
+		    	$edited++;
+  		    } else {
+		    	$inserted++;
+		    }
 //var_dump($data); 
 //$data = \DB::select( 'select ClientEdit(:id,:firstname_id,:lastname_id,:personal_code,:email,:adress,:city_id,:country_id,:ed,:cd);',
 //$post);
 
-}
-}
-}
+	    	}
+	    }
+	}
 //var_dump($contents);die;
 //foreach ($request->file() as $file) {
   //              foreach ($file as $f) {
